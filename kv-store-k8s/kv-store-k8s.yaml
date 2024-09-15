@@ -1,0 +1,35 @@
+#Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kv-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kvs-app
+  template:
+    metadata:
+      labels:
+        app: kvs-app
+    spec:
+      containers:
+      - name: kvs
+        image: pratheep10/kv-store:1.0
+        ports:
+        - containerPort: 8080
+---
+#Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: kvs-service
+spec:
+  selector:
+    app: kvs-app
+  ports:
+  - protocol: TCP
+    port: 80        
+    targetPort: 8080 
+    nodePort: 30001  
+  type: NodePort

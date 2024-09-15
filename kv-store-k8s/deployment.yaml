@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kv-store
+spec:
+  replicas: 3 
+  selector:
+    matchLabels:
+      app: kvs-app
+  template:
+    metadata:
+      labels:
+        app: kvs-app
+    spec:
+      containers:
+      - name: kvs
+        image: pratheep10/kv-store:v1
+        ports:
+        - containerPort: 8080 # The port your Go app listens on
+

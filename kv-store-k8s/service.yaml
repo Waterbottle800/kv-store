@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kvs-service
+spec:
+  selector:
+    app: kv-store-app
+  ports:
+  - protocol: TCP
+    port: 80        # Service port (external access)
+    targetPort: 8080 # Port on the container (matching the containerPort)
+    nodePort: 30001  # You can specify a custom NodePort or let Kubernetes assign one
+  type: NodePort 
